@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Домашня робота №2</title>
+    <style>
+        body{
+            font-family: sans-serif;
+            font-size: 16px;
+        }
+
+        button, input{
+            font-family: sans-serif;
+            font-size: 16px;
+            border-radius: 0%;
+            border-width: 1px;
+            width: 15%;
+            padding: 5px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+        <button onClick = "showHide('repair')">Ремонт</button>
+    <div id = "repair" style="display: none;">        
+        <p>Введіть довжину, ширину та висоту Вашого офісу відповідно:</p>
+        <input type = "number" id = "length" min = "0" max = "1000" required>
+        <input type = "number" id = "width" min = "0" max = "1000" required>
+        <input type = "number" id = "height" min = "0" max = "1000" required>
+        <input type = "button" id = "task1" value="Розрахувати">
+
+        <div id = "result1"></div>
+    </div>
+
+        <button onClick = "showHide('temperature')">Fahrenheit</button>
+    <div id = "temperature" style="display: none;">        
+        <p>Input temperature in Celsius:</p>
+        <input type = "number" id = "celsius" required>
+        <input type = "button" id = "task2" value="Calculate">
+
+        <div id = "result2"></div>
+    </div>
+
+        <button onClick = "showHide('lucky')">Щасливий квиток</button>
+    <div id = "lucky" style="display: none;">        
+        <p>Введіть номер Вашого квитку:</p>
+        <input type = "number" id = "ticketNumber" required>
+        <input type = "button" id = "task3" value="Первірити">
+
+        <div id = "result3"></div>
+    </div>
+
+
+    <script>
+        //створюємо функцію для приховування і показу кожного завдання
+        function showHide(taskId) {
+            tId = document.getElementById(taskId);
+            if (tId.style.display == "none"){
+                tId.style.display = "block";
+            }else{
+                tId.style.display = "none";
+            }
+        }
+
+        //task 1
+        let res1 = document.querySelector("#result1");
+        let t1 = document.getElementById('task1');
+
+        t1.onclick = function(){
+            let l = Number(document.getElementById('length').value);
+            let w = Number(document.getElementById('width').value);
+            let h = Number(document.getElementById('height').value);
+        
+            if(0 < l && l < 1000 && 0 < w && w < 1000 && 0 < h && h < 1000){
+                let s = (l + w) * h;
+                let can = s / 16;
+                res1.innerHTML = `Вам знадобиться ${can} банок фарби.`;
+            }else{
+                res1.innerHTML = `Потрібно ввести 3 значення від 0 до 1000.`;
+            }
+        }
+
+        //task 2
+        let res2 = document.querySelector("#result2");
+        let tas2 = document.getElementById('task2');
+
+        tas2.onclick = function(){
+            let cel = Number(document.getElementById('celsius').value);
+
+            let fah = cel * 1.8 + 32;
+            res2.innerHTML = `${cel} degrees Celsius is ${fah} degrees Fahrenheit.`;
+        }
+
+        //task 3
+        let res3 = document.querySelector("#result3");
+        let tas3 = document.getElementById('task3');
+
+        tas3.onclick = function(){
+            let ticNum = document.getElementById('ticketNumber').value;      
+            let ticket = Array.from(ticNum);
+
+            if(ticket.length == 6){
+            let sum1 = +ticket[0] + +ticket[1] + +ticket[2];
+            let sum2 = +ticket[3] + +ticket[4] + +ticket[5];
+
+            res3.innerHTML = (sum1 == sum2) ? "Це Ваш щасливий квиток!" : "Щастя не в квитках.";
+            }else{
+                res3.innerHTML = "Потрібно ввести 6 цифр";
+            }
+        }
+    </script>
+</body>
+</html>
